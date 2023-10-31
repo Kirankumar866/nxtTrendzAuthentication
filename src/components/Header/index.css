@@ -1,0 +1,107 @@
+/* Default styles for larger screens */
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+}
+
+.nav-menu-desktop {
+  display: flex;
+  list-style: none;
+}
+
+.link-item {
+  margin-right: 20px;
+  text-decoration: none;
+  color: #333;
+}
+
+.desktopLogout {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* Styles for screens less than 767px */
+@media (max-width: 767px) {
+  .nav-container {
+    flex-direction: row;
+  }
+
+  .nav-menu-desktop {
+    display: none;
+  }
+
+  .logout-mobile-btn {
+    display: flex;
+    align-items: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #333;
+  }
+
+  .nav-menu-mobile {
+    display: flex;
+    list-style: none;
+  }
+}
+
+/* Styles for screens 768px and larger */
+@media (min-width: 768px) {
+  .nav-menu-mobile {
+    display: none;
+  }
+
+  .nav-menu-desktop {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+    list-style: none;
+    color: #333;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 16px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    cursor: pointer;
+    margin-right: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  .desktopLogout {
+    display: block;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+  }
+}
+
+/* Additional styling for specific elements (adjust sizes as needed) */
+.websitelogo {
+  width: 150px;
+  height: 50px;
+}
+
+.logout-mobile-btn {
+  display: flex;
+  align-items: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #333;
+  font-weight: bold;
+}
+
+.logout-icon {
+  width: 20px;
+  height: 20px;
+}
