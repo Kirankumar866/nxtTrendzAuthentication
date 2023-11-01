@@ -4,18 +4,18 @@ import {Component} from 'react'
 import './index.css'
 
 class LoginForm extends Component {
-  state = {nameEntered: '', passwrdEntered: 'k'}
+  state = {username: '', password: '', errmsge: '', showSubmitError: false}
 
   onChangeUsername = event => {
-    this.setState({nameEntered: event.target.value})
+    this.setState({username: event.target.value})
   }
 
   onChangePassword = event => {
-    this.setState({passwrdEntered: event.target.value})
+    this.setState({password: event.target.value})
   }
 
   renderPasswordField = () => {
-    const {passwrdEntered} = this.state
+    const {password} = this.state
     return (
       <>
         <label className="input-label" htmlFor="password">
@@ -25,7 +25,7 @@ class LoginForm extends Component {
           type="password"
           id="password"
           className="password-input-filed"
-          value={passwrdEntered}
+          value={password}
           onChange={this.onChangePassword}
         />
       </>
@@ -33,7 +33,7 @@ class LoginForm extends Component {
   }
 
   renderUserNameField = () => {
-    const {nameEntered} = this.state
+    const {username} = this.state
     return (
       <>
         <label className="input-label" htmlFor="username">
@@ -43,7 +43,7 @@ class LoginForm extends Component {
           type="text"
           id="username"
           className="username-input-filed"
-          value={nameEntered}
+          value={username}
           onChange={this.onChangeUsername}
         />
       </>
@@ -55,26 +55,30 @@ class LoginForm extends Component {
     history.replace('/')
   }
 
+  onFailureSubmission = errmsge1 => {
+    this.setState({showSubmitError: true, errmsge: errmsge1})
+  }
+
   onSubmitForm = async event => {
     event.preventDefault()
-    const {nameEntered, passwrdEntered} = this.state
-    const userDetails = {nameEntered, passwrdEntered}
+    const {username, password} = this.state
+    const userDetails = {username, password}
     const url = 'https://apis.ccbp.in/login'
-
     const options = {
       method: 'POST',
       body: JSON.stringify(userDetails),
     }
-
     const response = await fetch(url, options)
     const data = await response.json()
     if (response.ok === true) {
       this.onSuccessfulSubmission()
+    } else {
+      this.onFailureSubmission(data.error_msg)
     }
-    console.log(response)
   }
 
   render() {
+    const {showSubmitError, errmsge} = this.state
     return (
       <div className="loginpage-container">
         <img
@@ -88,11 +92,17 @@ class LoginForm extends Component {
             src="https://assets.ccbp.in/frontend/react-js/nxt-trendz-logo-img.png"
             alt="website logo"
           />
+          <img
+            className="loginImage-mobile"
+            src="https://assets.ccbp.in/frontend/react-js/nxt-trendz-login-img.png"
+            alt="website login"
+          />
           <div className="userName-container">{this.renderUserNameField()}</div>
           <div className="password-container">{this.renderPasswordField()}</div>
           <button type="submit" className="login-button">
             Login
           </button>
+          {showSubmitError && <p>{errmsge}</p>}
         </form>
       </div>
     )
